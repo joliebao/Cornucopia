@@ -31,34 +31,30 @@ public class GridMaker {
 
     // creates the grid with B's and C's :)
     public String hiddenGrid(){
-        int counter = 0;
         int bombCount = 0;
 
-        for (int i = 0; i < gridNum; i++){
+        x = (int) (Math.random() * gridNum);
+        y = (int) (Math.random() * gridNum);
+        if (y > (gridNum/2)){
+            y -= 1 + (Math.random() * (gridNum/bombNum));
+        }
 
-            x = (int) (Math.random() * gridNum) + 1;
-            y = (int) (Math.random() * gridNum) + 1;
+        System.out.println(bombNum);
 
+        for (int i = 0; i < gridNum; i++) {
             mapping += "\n";
-            System.out.println(bombNum);
             for (int i2 = 0; i2 < gridNum; i2++){
-                if (counter != x * y) {
-                    mapping += " - ";     // nothing is there
-                } else if (counter == x * y && bombCount < bombNum){
-                    bombCount++;
-                    mapping += " B ";     // there is a bomb there
-                    for (int i3 = 0; i3 <= bombNum; i3++){
-                        int x1 = (int) (Math.random() * gridNum) + 1;
-                        int y1 = (int) (Math.random() * gridNum) + 1;
-                        if (x1 == x && y1 == y){
-                            x1 = (int) (Math.random() * gridNum) + 1;
-                            y1 = (int) (Math.random() * gridNum) + 1;
-                        }
-                        x = x1;
-                        y = y1;;
-                    }
+                if (i2 == x && i == y && bombCount < bombNum) {
+                    bombCount ++;
+                    mapping += " B ";
+                    System.out.println(bombCount);
+
+                    y += (int) (Math.random() * gridNum/bombNum);
+                    x = (int) (Math.random() * gridNum);
+
+                } else {
+                    mapping += " - ";
                 }
-                counter ++;
             }
         }
         return mapping;
