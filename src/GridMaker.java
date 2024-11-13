@@ -32,6 +32,7 @@ public class GridMaker {
     // creates the grid with B's and C's :)
     public String hiddenGrid(){
         int bombCount = 0;
+        boolean cornPlanted = false;
 
         x = (int) (Math.random() * gridNum);
         y = (int) (Math.random() * gridNum);
@@ -41,10 +42,19 @@ public class GridMaker {
 
         System.out.println(bombNum);
 
+        // I could try using .replace() (?)
+
         for (int i = 0; i < gridNum; i++) {
             mapping += "\n";
             for (int i2 = 0; i2 < gridNum; i2++){
-                if (i2 == x && i == y && bombCount < bombNum) {
+                if (i2 == x && i == y && !cornPlanted) {
+                    mapping += " C ";
+
+                    cornPlanted = true;
+
+                    y += (int) (Math.random() * gridNum / bombNum);
+                    x = (int) (Math.random() * gridNum);
+                } else if (i2 == x && i == y && bombCount < bombNum) {
                     bombCount ++;
                     mapping += " B ";
                     System.out.println(bombCount);
@@ -59,4 +69,15 @@ public class GridMaker {
         }
         return mapping;
     }
+
+    // UNCOMMENT LATER
+
+//    public String changeGrid(){
+//        // replace X with following -, B, C at guess
+//        mapping = hiddenGrid();
+//        grid = shownGrid();
+//        GridReceiver.gridChecker();
+//        return grid;
+//    }
+
 }
