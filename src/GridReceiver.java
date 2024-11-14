@@ -1,4 +1,6 @@
-//public class GridReceiver {
+//___________________________________________ I AM TESTING ALL THIS INTO ONE CLASS
+//
+// public class GridReceiver {
 //    private String guess;
 //
 //    public GridReceiver(String guess){
