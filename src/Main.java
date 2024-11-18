@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
         boolean end = false;
-        String g = "";
+        String g = "";   // the guess
 
         // get grid value (gridNum * gridNum) -- ex (7 by 7)
         int gridNum = 0;
@@ -23,17 +23,18 @@ public class Main {
         // CODE TESTING _____________
         GridMaker a = new GridMaker(gridNum, bombNum);
         System.out.println(a.shownGrid());
-        System.out.println(a.hiddenGrid());
-        while (!end){
+        while (!end) {
             System.out.println();
-            System.out.print("Give a coordinate: ");
+            System.out.print("Give a coordinate in the form (a,b): ");
             g = s.nextLine();
+            String mapping = a.hiddenGrid();
 
             if (g != "") {
                 a.GridReceiver(g);
                 a.getX();
                 a.getY();
-                System.out.println(a.gridChecker());
+                System.out.println(a.gridChecker(mapping));
+
             }
         }
 

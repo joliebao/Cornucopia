@@ -45,8 +45,6 @@ public class GridMaker {
         x = (int) (Math.random() * gridNum);
         y = (int) (Math.random() * gridNum);
 
-        System.out.println(bombNum); // for testing
-
         for (int i = 0; i < gridNum; i++) {
             mapping += "\n";
             for (int i2 = 0; i2 < gridNum; i2++) {
@@ -96,32 +94,33 @@ public class GridMaker {
         int y = Integer.parseInt(guess.substring(from+1, to));
         return y;
     }
-//
-//    Boolean bombNearby = false;
-//    Boolean cornNearby = false;
-//    Boolean onBomb = false;
-//    Boolean onCorn = false;
-//
-//    // how to make these equal to the values in the string???
 
-    public Boolean gridChecker(){
+    //METHOD PROBLEMS: runs hiddenGrid() each time --- it should only run once.
+    //                 does not work if corn is there
+
+    public String gridChecker(mapping) {
         int x = getX();
         int y = getY();
         int counter = 0;
-        String sensor = "";
+        String sensor = "placeholder";
+        String result = "";
 
-        for (int i = 0; i < mapping.length(); i++){
-            counter ++;
-            if (counter == gridNum * (y - 1) + x){
-                sensor = mapping.substring(counter, counter+1);
-            }
+        while (counter < (gridNum * (y - 1) + x)) {
+            counter++;
         }
+        if (mapping.substring(counter, counter + 1).equals("\n") || mapping.substring(counter, counter + 1).equals(" ")) {
+            counter++;
+        }
+        sensor = (mapping.substring(counter, counter + 1));
 
-        if (sensor.equals("C")){
-            return true; // will fix to appropriate conditions later
-        }
-        if (sensor.equals("B")){
-            return true;
+        if (sensor.equals("C")) {
+            result += "Found corn";
+        } else if (sensor.equals("B")) {
+            result += "Found bomb";
+        } else if (sensor.equals("-")){
+            sensor = (mapping.substring(counter-4, counter-3));
+            System.out.println(sensor);
+            result += "Found Nothing";
         }
 //        if (grid.substring(x + 1, x + 2).equals("C") || grid.substring(x - 1, x).equals("C") || grid.substring(y + 1, y + 2).equals("C") || grid.substring(y - 1, y).equals("C")){
 //            cornNearby = true;
@@ -129,7 +128,7 @@ public class GridMaker {
 //        if (grid.substring(x + 1, x + 2).equals("B") || grid.substring(x - 1, x).equals("B") || grid.substring(y + 1, y + 2).equals("B") || grid.substring(y - 1, y).equals("B")){
 //            bombNearby = true;
 //        }
-        return false; /// WILL FIX LATER THIS METHOD DEFINITELY IT DOESNT WORK YET
+        return result;
     }
 //
 //    public String decisionMaker(){
