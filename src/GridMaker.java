@@ -41,31 +41,30 @@ public class GridMaker {
     public String hiddenGrid(){
         int bombCount = 0;
         boolean cornPlanted = false;
+        boolean full = false;
 
         x = (int) (Math.random() * gridNum);
         y = (int) (Math.random() * gridNum);
 
         for (int i = 0; i < gridNum; i++) {
-            mapping += "\n";
             for (int i2 = 0; i2 < gridNum; i2++) {
                 if (i2 == x && i == y && !cornPlanted) {
-                    mapping += " C ";
+                    mapping += "C";
 
                     cornPlanted = true;
 
                     y += (int) (Math.random() * gridNum / bombNum);
                     x = (int) (Math.random() * gridNum);
                 } else {
-                    mapping += " - ";
+                    mapping += "-";
                 }
             }
         }
 
-        // only in the first row....
+        // ONLY IN THE FIRST ROW --> FIX
         while (bombCount < bombNum) {
             bombCount++;
-            mapping = mapping.replaceFirst("-", "B");
-
+            mapping = mapping.replaceFirst("-","B");
             y = (int) (Math.random() * gridNum);
             x = (int) (Math.random() * gridNum);
         }
@@ -73,6 +72,7 @@ public class GridMaker {
         return mapping.toString();
     }
 
+    // NEED TO UPDATE THE GRID FOR USER TO SEE AFTER EVERY GUESS --> FIX THIS USING SAME STRATEGY AS CHANGING THE HIDDEN GRID
 //    public String changeGrid(){
 //        // replace X with following -, B, C at guess
 //        mapping = hiddenGrid();
@@ -95,58 +95,55 @@ public class GridMaker {
         return y;
     }
 
-    //METHOD PROBLEMS: runs hiddenGrid() each time --- it should only run once.
-    //                 does not work if corn is there
+    //METHOD PROBLEMS: runs hiddenGrid() each time --- it should only run once. -> fix it
+    //                 does not work sometimes if corn is there
 
-    public String gridChecker(mapping) {
+    public String gridChecker() {
         int x = getX();
         int y = getY();
         int counter = 0;
         String sensor = "placeholder";
         String result = "";
 
-        while (counter < (gridNum * (y - 1) + x)) {
+        String hGrid = hiddenGrid();
+
+        while (counter < (x + gridNum * (y - 1))) {
             counter++;
         }
-        if (mapping.substring(counter, counter + 1).equals("\n") || mapping.substring(counter, counter + 1).equals(" ")) {
-            counter++;
-        }
-        sensor = (mapping.substring(counter, counter + 1));
+
+        sensor = (hGrid.substring(counter, counter + 1));
 
         if (sensor.equals("C")) {
-            result += "Found corn";
+            result = "Found corn";
         } else if (sensor.equals("B")) {
-            result += "Found bomb";
+            result = "Found bomb";
         } else if (sensor.equals("-")){
-            sensor = (mapping.substring(counter-4, counter-3));
-            System.out.println(sensor);
-            result += "Found Nothing";
+            if (hGrid.charAt(counter - 1) == 'B' || hGrid.charAt(counter + 1) == 'B'){
+                result += "WOOO WOOO WOOO \nCareful! Your bomb radar is going off!";
+            }
+            if (hGrid.charAt(counter - 1) == 'C' || hGrid.charAt(counter + 1) == 'C'){
+                result += "WOOO WOOO WOOO \nYour corn radar is going off!";
+            }
+            else {
+                result = "Found Nothing";
+            }
         }
-//        if (grid.substring(x + 1, x + 2).equals("C") || grid.substring(x - 1, x).equals("C") || grid.substring(y + 1, y + 2).equals("C") || grid.substring(y - 1, y).equals("C")){
-//            cornNearby = true;
-//        }
-//        if (grid.substring(x + 1, x + 2).equals("B") || grid.substring(x - 1, x).equals("B") || grid.substring(y + 1, y + 2).equals("B") || grid.substring(y - 1, y).equals("B")){
-//            bombNearby = true;
-//        }
         return result;
     }
-//
-//    public String decisionMaker(){
-//        gridChecker();
-//        String end = "";
-//        if (cornNearby){
-//            end = "WOOO WOOO WOOO \nYour corn radar is going off!";
-//        }
-//        if (bombNearby){
-//            end = "WOOO WOOO WOOO \nCareful! Your bomb radar is going off!";
-//        }
-//
-//        if (onBomb){
-//            end = "You lost! You stepped on a bomb.\nOh man...\nYour mom is not going to be happy...";
-//        } else if (onCorn){
-//            end = "You won!\nYou're mom is overjoyed that you will have a full Thanksgiving dinner.\nThe corn was the star of the meal.";
-//        }
-//        return end;
-//    }
+
+    // game keeps ending after one round (?) -> fix
+    public String decisionMaker(){
+        String result = gridChecker();
+        String end = "";
+
+        if (result.equals("Found bomb")){
+            end = "You lost! You stepped on a bomb.\nOh man...\nYour mom is not going to be happy...";
+        } else if (result.equals("Found corn")){
+            end = "You won!\nThe corn was the star of the Thanksgiving Dinner.";
+        } else {
+            end = "";
+        }
+        return end;
+    }
 
 }
