@@ -73,13 +73,25 @@ public class GridMaker {
     }
 
     // NEED TO UPDATE THE GRID FOR USER TO SEE AFTER EVERY GUESS --> FIX THIS USING SAME STRATEGY AS CHANGING THE HIDDEN GRID
-//    public String changeGrid(){
-//        // replace X with following -, B, C at guess
-//        mapping = hiddenGrid();
-//        grid = shownGrid();
-//        gridChecker();
-//        return grid;
-//    }
+    public String changeGrid(){
+        // replace X with following -, B, C at guess
+        mapping = hiddenGrid();
+        grid = shownGrid();
+        String result = gridChecker();
+        int counter = 0;
+
+        if (result == "Found corn"){
+            while (counter < (x + gridNum * (y - 1))) {
+                counter++;
+            }
+            grid = grid.substring(0,counter) + " C " + grid.substring(counter+1);
+        } else if (result == "Found bomb"){
+            grid = grid.substring(0,counter) + " C " + grid.substring(counter+1);
+        } else if (result.equals("Found nothing")){
+            grid = grid.substring(0,counter) + " - " + grid.substring(counter+1);
+        }
+        return grid;
+    }
 
     public int getX(){
         int from = guess.indexOf("(");
