@@ -1,9 +1,15 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class GridMaker {
     private int gridNum;
     private int bombNum;
     private int x;
     private int y;
-    private String grid;
+    private String sGrid;
+    private String hGrid;
+    private List<String> grid1 = new ArrayList<String>();
+    private List<String> grid2 = new ArrayList<String>();
     private String guess;
     private String mapping;
 
@@ -14,27 +20,30 @@ public class GridMaker {
     {
         this.gridNum = gridNum;
         this.bombNum = bombNum;
-        grid = "";
         int x = 0;
         int y = 0;
         this.mapping = "";
+        List grid1 = new ArrayList();
+        sGrid = grid1.toString();
+        List grid2 = new ArrayList();
+        hGrid = grid2.toString();
     }
 
     public void GridReceiver(String guess){
         this.guess = guess;
     }
 
-
     // creates the grid of X's :)
     public String shownGrid()
     {
         for (int i = 0; i < gridNum; i++){
-            grid += "\n";
+            grid1.add(" X ");
             for (int i2 = 0; i2 < gridNum; i2++){
-                grid += " X ";
+                grid1.add(" X ");
             }
         }
-        return grid;
+        sGrid = grid1.toString();
+        return sGrid;
     }
 
     // creates the grid with B's and C's :)
@@ -43,28 +52,24 @@ public class GridMaker {
         boolean cornPlanted = false;
         boolean full = false;
 
-        x = (int) (Math.random() * gridNum);
-        y = (int) (Math.random() * gridNum);
+        x = (int) (Math.random() * (gridNum*gridNum));
 
-        for (int i = 0; i < gridNum; i++) {
-            for (int i2 = 0; i2 < gridNum; i2++) {
-                if (i2 == x && i == y && !cornPlanted) {
-                    mapping += "C";
-
-                    cornPlanted = true;
-
-                    y += (int) (Math.random() * gridNum / bombNum);
-                    x = (int) (Math.random() * gridNum);
-                } else {
-                    mapping += "-";
-                }
+        for (int i = 0; i < gridNum; i++){
+            grid2.add(" - ");
+            for (int i2 = 0; i2 < gridNum; i2++){
+                grid2.add(" - ");
             }
         }
 
-        // ONLY IN THE FIRST ROW --> FIX
-        while (bombCount < bombNum) {
+        if (!cornPlanted) {
+            grid2.remove(x);
+            grid2.add(x-1, " C ");
+        }
+
+        if (bombCount < bombNum) {
             bombCount++;
-            mapping = mapping.replaceFirst("-","B");
+            grid2.remove(x);
+            grid2.add(x-1, " B ");
             y = (int) (Math.random() * gridNum);
             x = (int) (Math.random() * gridNum);
         }
