@@ -27,11 +27,16 @@ public class Main {
 
         // get grid value (gridNum * gridNum) -- ex (7 by 7)
         int gridNum = 0;
-        while (gridNum < 5) {
+        while (gridNum < 5 || gridNum > 10) {
             System.out.print("Enter a grid size (integers only): ");
             gridNum = s.nextInt();
             if (gridNum < 5) {
                 System.out.println("Too small!");
+                System.out.println();
+            }
+            else if (gridNum > 10){
+                System.out.println("Where do you think you live? A plantation?");
+                System.out.println("Too big!");
                 System.out.println();
             }
         }
@@ -51,32 +56,33 @@ public class Main {
             // the first one always prints one extra "give a coordinate... " -> fix it
             System.out.print("Give a coordinate in the form (x,y): ");
             String g = s.nextLine();
+            System.out.println();
 
             if (!(g == "")) {
                 a.GridReceiver(g);
                 int x = a.getX();
                 int y = a.getY();
-                if (x > gridNum || y > gridNum) {
-                    while (x > gridNum || y > gridNum) {
-                        System.out.println("Too big! Stay inside the maze!");
-                        System.out.print("Give a coordinate in the form (x,y): ");
-                        a.GridReceiver(g);
-                        g = s.nextLine();
-                        x = a.getX();
-                        y = a.getY();
-                    }
+                while (x > gridNum || y > gridNum) {
+                    System.out.println("Too big! Stay inside the maze!");
+
+                    System.out.print("Give a coordinate in the form (x,y): ");
+                    g = s.nextLine();
+                    a.GridReceiver(g);
+
+                    x = a.getX();
+                    y = a.getY();
                 }
 
-                a.gridChecker();
-//                System.out.println(a.decisionMaker());
+                System.out.println(a.gridChecker());
                 System.out.println(a.changeGrid());
 
-//
-//                if (!(a.decisionMaker().isEmpty())) {
-//                    loop = false;
-//                }
+
+                if (!(a.decisionMaker().isEmpty())) {
+                    loop = false;
+                }
             }
         }
+        System.out.println(a.decisionMaker());
         s.close();
     }
 }

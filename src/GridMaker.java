@@ -97,9 +97,6 @@ public class GridMaker {
         while (counter < (x + gridNum * (y - 1))) {
             counter++;
         }
-        if (grid1.get(counter).equals("\n")){
-            counter++;
-        }
 
         // DOES NOT ADD THE / WHEN NECESSARY
         if (result.equals("Found bomb")){
@@ -109,7 +106,15 @@ public class GridMaker {
             grid1.remove(counter);
             grid1.add(counter, " C");
         } else {
-            System.out.println("Working?");
+            if (grid1.get(counter).equals("\n") && x == gridNum){
+                if (y == 1){
+                    counter--;
+                } else{
+                    counter -= (y-1);
+                }
+            } else if (grid1.get(counter).equals("\n") && x == 1){
+                counter += (y-1);
+            }
             grid1.remove(counter);
             grid1.add(counter, " -");
         }
@@ -118,8 +123,8 @@ public class GridMaker {
         sGrid = sGrid.replace(",","");
         sGrid = sGrid.replace("[","");
         sGrid = sGrid.replace("]","");
-        sGrid = "  " + sGrid;
         sGrid = sGrid.trim();
+        sGrid = "  " + sGrid;
         return sGrid;
     }
 
@@ -165,19 +170,19 @@ public class GridMaker {
         return result;
     }
 
-//    // game keeps ending after one round (?) -> fix
-//    public String decisionMaker(){
-//        String result = gridChecker();
-//        String end = "";
-//
-//        if (result.equals("Found bomb")){
-//            end = "You lost! You stepped on a bomb.\nOh man...\nYour mom is not going to be happy...";
-//        } else if (result.equals("Found corn")){
-//            end = "You won!\nThe corn was the star of the Thanksgiving Dinner.";
-//        } else {
-//            end = "";
-//        }
-//        return end;
-//    }
+    // game keeps ending after one round (?) -> fix
+    public String decisionMaker(){
+        String result = gridChecker();
+        String end = "";
+
+        if (result.equals("Found bomb")){
+            end = "You lost! You stepped on a bomb.\nOh man...\nYour mom is not going to be happy...";
+        } else if (result.equals("Found corn")){
+            end = "You won!\nThe corn was the star of the Thanksgiving Dinner.";
+        } else {
+            end = "";
+        }
+        return end;
+    }
 
 }
