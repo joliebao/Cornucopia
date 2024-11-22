@@ -92,9 +92,9 @@ public class GridMaker {
     public String changeGrid(){
         // replace X with following -, B, C at guess
         String result = gridChecker();
-        int counter = 0;
+        int counter = -1;
 
-        while (counter < (x + gridNum * (y - 1))) {
+        while (counter < (x + (gridNum+1) * (y - 1))) {
             counter++;
         }
 
@@ -106,15 +106,6 @@ public class GridMaker {
             grid1.remove(counter);
             grid1.add(counter, " C");
         } else {
-            if (grid1.get(counter).equals("\n") && x == gridNum){
-                if (y == 1){
-                    counter--;
-                } else{
-                    counter -= (y-1);
-                }
-            } else if (grid1.get(counter).equals("\n") && x == 1){
-                counter += (y-1);
-            }
             grid1.remove(counter);
             grid1.add(counter, " -");
         }

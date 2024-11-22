@@ -53,10 +53,26 @@ public class Main {
 
         while (loop){
             System.out.println();
-            // the first one always prints one extra "give a coordinate... " -> fix it
+//             the first one always prints one extra "give a coordinate... " -> fix it
             System.out.print("Give a coordinate in the form (x,y): ");
             String g = s.nextLine();
-            System.out.println();
+            a.GridReceiver(g);
+
+            String result = "";
+
+            try {
+                int test = a.getX();
+                result = "Is ( , ))";
+            } catch (NumberFormatException e) {
+                result = "Isn't ( , ))";
+            }
+
+            if (result.equals("Isn't ( , ))")){ // just needs parenthesis form
+                System.out.println("Must be in the form of (x,y)!");
+                System.out.println("Try again!");
+                System.out.print("Give a coordinate in the form (x,y): ");
+                g = s.nextLine();
+            }
 
             if (!(g == "")) {
                 a.GridReceiver(g);
@@ -75,7 +91,6 @@ public class Main {
 
                 System.out.println(a.gridChecker());
                 System.out.println(a.changeGrid());
-
 
                 if (!(a.decisionMaker().isEmpty())) {
                     loop = false;
