@@ -58,21 +58,22 @@ public class Main {
             String g = s.nextLine();
             a.GridReceiver(g);
 
-            String result = "";
-
-            try {
-                int test = a.getX();
-                result = "Is ( , ))";
-            } catch (NumberFormatException e) {
-                result = "Isn't ( , ))";
-            }
-
-            if (result.equals("Isn't ( , ))")){ // just needs parenthesis form
-                System.out.println("Must be in the form of (x,y)!");
-                System.out.println("Try again!");
-                System.out.print("Give a coordinate in the form (x,y): ");
-                g = s.nextLine();
-            }
+//            String result = "";
+//
+//            try {
+//                a.GridReceiver(g);
+//                int test = a.getX();
+//                result = "Is coordinate";
+//            } catch (NumberFormatException e) {
+//                result = "Isn't coordinate";
+//            }
+//
+//            if (result.equals("Isn't coordinate")){ // just needs parenthesis form
+//                System.out.println("Must be in the form of (x,y)!");
+//                System.out.println("Try again!");
+//                System.out.print("Give a coordinate in the form (x,y): ");
+//                g = s.nextLine();
+//            }
 
             if (!(g == "")) {
                 a.GridReceiver(g);

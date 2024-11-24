@@ -1,6 +1,7 @@
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class GridMaker {
     private int gridNum;
@@ -12,7 +13,6 @@ public class GridMaker {
     private List<String> grid1 = new ArrayList<String>();
     private List<String> grid2 = new ArrayList<String>();
     private String guess;
-    private String mapping;
 
     ////// CREATE JAVADOCS LATER __________________________________________
 
@@ -23,7 +23,6 @@ public class GridMaker {
         this.bombNum = bombNum;
         int x = 0;
         int y = 0;
-        this.mapping = "";
         List grid1 = new ArrayList();
         sGrid = grid1.toString();
         List grid2 = new ArrayList();
@@ -92,11 +91,13 @@ public class GridMaker {
     public String changeGrid(){
         // replace X with following -, B, C at guess
         String result = gridChecker();
-        int counter = -1;
+        int counter = 0;
 
-        while (counter < (x + (gridNum+1) * (y - 1))) {
+        while (counter < (x + (gridNum) * (y - 1))) {
             counter++;
         }
+        counter += (y-1);
+        counter --;
 
         // DOES NOT ADD THE / WHEN NECESSARY
         if (result.equals("Found bomb")){
@@ -148,7 +149,7 @@ public class GridMaker {
         } else if (sensor.equals("B")) {
             result = "Found bomb";
         } else if (sensor.equals("-")){
-            if (hGrid.charAt(counter - 1) == 'B' || hGrid.charAt(counter + 1) == 'B'){
+            if (hGrid.charAt(counter - 1) == 'C' || (hGrid.charAt(counter + 1) == 'B')){
                 result += "WOOO WOOO WOOO \nCareful! Your bomb radar is going off!\n";
             }
             else if (hGrid.charAt(counter - 1) == 'C' || hGrid.charAt(counter + 1) == 'C'){
