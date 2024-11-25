@@ -39,6 +39,7 @@ public class Main {
         System.out.println();
         boolean loop = true;
         System.out.println(a.shownGrid());
+        a.hiddenGrid();
 
         while (loop){
             System.out.println();
