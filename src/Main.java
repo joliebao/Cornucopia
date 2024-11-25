@@ -14,9 +14,29 @@ public class Main {
             System.out.println(directions.instruct());
             System.out.println();
         }
+        while (!confirmation.equals("no") && !confirmation.equals("yes")){
+            System.out.println("Not an option!");
+            System.out.println("Do you want the instructions? (Yes/No) ");
+            confirmation = s.nextLine().toLowerCase();
+            System.out.println();
+        }
 
+//        String result = "";
         // get grid value (gridNum * gridNum) -- ex (7 by 7)
         int gridNum = 0;
+
+//        try {
+//            gridNum = s.nextInt();
+//        } catch (NumberFormatException e) {
+//            result = "Isn't num";
+//        }
+//
+//        while (result.equals("Isn't num")){ // just needs parenthesis form
+//                System.out.println("Must be a integer!");
+//                System.out.println("Try again!");
+//                System.out.print("Enter a grid size (integers only): ");
+//                gridNum = s.nextInt();
+//            }
         while (gridNum < 5 || gridNum > 10) {
             System.out.print("Enter a grid size (integers only): ");
             gridNum = s.nextInt();
@@ -43,13 +63,10 @@ public class Main {
 
         while (loop){
             System.out.println();
-//             the first one always prints one extra "give a coordinate... " -> fix it
             System.out.print("Give a coordinate in the form (x,y): ");
-            String g = s.nextLine();
+            String g = s.next();
             a.GridReceiver(g);
             System.out.println();
-
-//            String result = "";
 //
 //            try {
 //                a.GridReceiver(g);
@@ -74,7 +91,7 @@ public class Main {
                     System.out.println("Too small! Stay inside the maze!");
 
                     System.out.print("Give a coordinate in the form (x,y): ");
-                    g = s.nextLine();
+                    g = s.next();
                     a.GridReceiver(g);
 
                     x = a.getX();
@@ -84,7 +101,7 @@ public class Main {
                     System.out.println("Too big! Stay inside the maze!");
 
                     System.out.print("Give a coordinate in the form (x,y): ");
-                    g = s.nextLine();
+                    g = s.next();
                     a.GridReceiver(g);
 
                     x = a.getX();
