@@ -65,7 +65,7 @@ public class Main {
             System.out.println();
             System.out.print("Give a coordinate in the form (x,y): ");
             String g = s.next();
-            a.GridReceiver(g);
+            a.gridReceiver(g);
             System.out.println();
 //
 //            try {
@@ -84,7 +84,7 @@ public class Main {
 //            }
 
             if (!(g == "")) {
-                a.GridReceiver(g);
+                a.gridReceiver(g);
                 int x = a.getX();
                 int y = a.getY();
                 while (x < 0 || y < 0) {
@@ -92,7 +92,7 @@ public class Main {
 
                     System.out.print("Give a coordinate in the form (x,y): ");
                     g = s.next();
-                    a.GridReceiver(g);
+                    a.gridReceiver(g);
 
                     x = a.getX();
                     y = a.getY();
@@ -102,7 +102,7 @@ public class Main {
 
                     System.out.print("Give a coordinate in the form (x,y): ");
                     g = s.next();
-                    a.GridReceiver(g);
+                    a.gridReceiver(g);
 
                     x = a.getX();
                     y = a.getY();

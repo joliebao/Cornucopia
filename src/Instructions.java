@@ -1,7 +1,13 @@
-import java.util.concurrent.TimeUnit;
-
+/**
+ * The Instructions Class creates the directions on how to play.
+ */
 public class Instructions {
     private String directions;
+
+    /**
+     * Constructor for the Instructions class. This creates a new instance of the Instructions.
+     * No parameters are taken, there is a default String with information below.
+     */
     public Instructions(){
         this.directions = "It is Thanksgiving morning, and your mom forgot to pick up the corn cobs!\n" +
                 "You can't have a Thanksgiving dinner without her legendary roasted corn!\n" +
@@ -41,6 +47,13 @@ public class Instructions {
                 "Be careful to remember which coordinate alerts you though, you will not have a reminder!";
     }
 
+    /**
+     * instruct method for the Instructions class. This method will return the
+     * instructions stored in the directions String.
+     *
+     * @return returns a String variable directions that stores the directions of the game
+     * Note that this class might not be used at all, it is for new players.
+     */
     public String instruct() {
         return directions;
     }

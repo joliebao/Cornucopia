@@ -1,8 +1,11 @@
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
+/**
+ * The GridMaker Class makes grids (sGrid, hGrid, grid1, grid2) and updates them based on inputted coordinates (guess).
+ * A grid requires a size (gridNum), and coordinates require and x (x) and y value (y).
+ * In this usage, two Grids are needed, one of the hidden values (whole grid) and one of the shown grids.
+ */
 public class GridMaker {
     private int gridNum;
     private int bombNum;
@@ -14,9 +17,15 @@ public class GridMaker {
     private List<String> grid2 = new ArrayList<String>();
     private String guess;
 
-    ////// CREATE JAVADOCS LATER __________________________________________
-
-    // constructor :)
+    /**
+     * Constructor for the GridMaker class. This creates a new instance of the GridMakers given
+     * the below parameters.
+     *
+     * @param gridNum represents the size of the Grid
+     * @param bombNum represents the number of Bombs based on the size of the grid
+     *
+     * It also instantiates the other variables and lists needed to operate the code
+     */
     public GridMaker(int gridNum, int bombNum)
     {
         this.gridNum = gridNum;
@@ -29,11 +38,21 @@ public class GridMaker {
         hGrid = grid2.toString();
     }
 
-    public void GridReceiver(String guess){
+    /**
+     * gridReceiver method for the GridMaker class. This method will take in the user's
+     * coordinate guess.
+     */
+    public void gridReceiver(String guess){
         this.guess = guess;
     }
 
-    // creates the grid of X's :)
+    /**
+     * shownGrid method for the GridMaker class. This method will make a grid of X's based on the
+     * user's choice of Grid Size, first as a List, and then change it into a String.
+     *
+     * @return returns a String in a properly formatted square grid
+     * storing the original X's of the shown grid (sGrid). Note that this one will be printed.
+     */
     public String shownGrid()
     {
         for (int i = 0; i < gridNum; i++){
@@ -51,7 +70,15 @@ public class GridMaker {
         return sGrid;
     }
 
-    // creates the grid with B's and C's :)
+    /**
+     * hiddenGrid method for the GridMaker class. This method will make a grid of X's based on the
+     * user's choice of Grid Size, first as a List, and then change it into a String.
+     * Before its conversion into a String, it will replace random indexes of the List with one 'C'
+     * and the variable bombNum number of 'B's.
+     *
+     * @return returns a String of the hidden grid (hGrid) in a single line
+     * Note that this one won't be printed.
+     */
     public String hiddenGrid(){
         int bombCount = 0;
         boolean cornPlanted = false;
@@ -87,7 +114,15 @@ public class GridMaker {
         return hGrid;
     }
 
-    // NEED TO UPDATE THE GRID FOR USER TO SEE AFTER EVERY GUESS --> FIX THIS USING SAME STRATEGY AS CHANGING THE HIDDEN GRID
+    /**
+     * changeGrid method for the GridMaker class. This method will change the original grid
+     * from the shownGrid method first as a List, and then change it into a String.
+     * It will replace specific indexes of the List with '-', 'B', or 'C'
+     * based on the gridChecker method
+     *
+     * @return returns a String in a properly formatted square grid
+     * storing the changed grid. Note that this one will be printed.
+     */
     public String changeGrid(){
         // replace X with following -, B, C at guess
         String result = gridChecker();
@@ -120,6 +155,12 @@ public class GridMaker {
         return sGrid;
     }
 
+    /**
+     * getX method for the GridMaker class. This method will take the guess from gridReceiver()
+     * and take the integer x-value from the guess String.
+     *
+     * @return returns an int x that stores the x-value from the coordinate guessed.
+     */
     public int getX(){
         int from = guess.indexOf("(");
         int to = guess.indexOf(",");
@@ -127,6 +168,12 @@ public class GridMaker {
         return x;
     }
 
+    /**
+     * getY method for the GridMaker class. This method will take the guess from gridReceiver()
+     * and take the integer y-value from the guess String.
+     *
+     * @return returns an int y that stores the y-value from the coordinate guessed.
+     */
     public int getY(){
         int from = guess.indexOf(",");
         int to = guess.indexOf(")");
@@ -134,6 +181,15 @@ public class GridMaker {
         return y;
     }
 
+    /**
+     * gridChecker method for the GridMaker class. This method will create an index based on
+     * the grid size and coordinate guessed.
+     * It will compare that index of the hidden grid with the characters '-', 'B', or 'C'
+     *
+     * @return returns a String response in variable result that stores a different
+     * indicator based on what character the index is.
+     * Note that this will be printed, and used for conditions in the changeGrid method and decisionMaker method.
+     */
     public String gridChecker() {
         int counter = 0;
         String result = "";
@@ -158,7 +214,14 @@ public class GridMaker {
         return result;
     }
 
-    // game keeps ending after one round (?) -> fix
+    /**
+     * decisionMaker method for the GridMaker class. This method will determine whether
+     * the game has ended of not based on the returned response of GridChecker()
+     *
+     * @return returns a String response in variable end that stores a different
+     * statement based on whether the player wins or loses.
+     * Note that this will be printed and end the game.
+     */
     public String decisionMaker(){
         String result = gridChecker();
         String end = "";
@@ -172,5 +235,4 @@ public class GridMaker {
         }
         return end;
     }
-
 }
