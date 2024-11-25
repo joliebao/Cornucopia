@@ -149,13 +149,9 @@ public class GridMaker {
         } else if (sensor.equals("B")) {
             result = "Found bomb";
         } else if (sensor.equals("-")){
-            if (hGrid.charAt(counter - 1) == 'C' || (hGrid.charAt(counter + 1) == 'B')){
+            if (grid2.get(counter - 1).equals("B") || grid2.get(counter + 1).equals("B") || (counter+gridNum < gridNum*gridNum) && grid2.get(counter + gridNum).equals("B") || (counter-gridNum > 0) && grid2.get(counter - gridNum).equals("B")){
                 result += "WOOO WOOO WOOO \nCareful! Your bomb radar is going off!\n";
-            }
-            else if (hGrid.charAt(counter - 1) == 'C' || hGrid.charAt(counter + 1) == 'C'){
-                result += "WOOO WOOO WOOO \nYour corn radar is going off!";
-            }
-            else {
+            } else {
                 result += "Found Nothing";
             }
         }

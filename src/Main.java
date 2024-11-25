@@ -1,29 +1,19 @@
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Scanner s = new Scanner(System.in);
-//        System.out.println("CORNUCOPIA - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
-//        System.out.println();
-//        System.out.println("It is Thanksgiving morning, and your mom forgot to pick up the corn cobs!\n" +
-//                "You can't have a Thanksgiving dinner without her legendary roasted corn!\nShe sends you outside to go get them.");
-//        System.out.println();
-//
-//        TimeUnit.SECONDS.sleep(5);
-//
-//        System.out.println(".");
-//        System.out.println(".");
-//        System.out.println(".");
-//        System.out.println();
-//
-//        System.out.println("Instructions:\nBackyard, there is a corn maze (grid).\nYou will explore the maze and search for the single corn cob." +
-//                "(Searching comes in the form of coordinate points)\n" +
-//                "Your neighbor is tired of pesky thieves raiding the corn maze of its maize.\n" +
-//                "He has set up some flour bombs to keep them out.\nNot to worry, you have permission! Just be careful to not get exploded by one of them!");
-//        System.out.println();
-//
-//        TimeUnit.SECONDS.sleep(12);
+        System.out.println("CORNUCOPIA - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
+        System.out.println();
+
+        System.out.println("Do you want the instructions? (Yes/No) ");
+        String confirmation = s.nextLine().toLowerCase();
+        System.out.println();
+        if (confirmation.equals("yes")){
+            Instructions directions = new Instructions();
+            System.out.println(directions.instruct());
+            System.out.println();
+        }
 
         // get grid value (gridNum * gridNum) -- ex (7 by 7)
         int gridNum = 0;
@@ -57,6 +47,7 @@ public class Main {
             System.out.print("Give a coordinate in the form (x,y): ");
             String g = s.nextLine();
             a.GridReceiver(g);
+            System.out.println();
 
 //            String result = "";
 //
@@ -79,6 +70,16 @@ public class Main {
                 a.GridReceiver(g);
                 int x = a.getX();
                 int y = a.getY();
+                while (x < 0 || y < 0) {
+                    System.out.println("Too small! Stay inside the maze!");
+
+                    System.out.print("Give a coordinate in the form (x,y): ");
+                    g = s.nextLine();
+                    a.GridReceiver(g);
+
+                    x = a.getX();
+                    y = a.getY();
+                }
                 while (x > gridNum || y > gridNum) {
                     System.out.println("Too big! Stay inside the maze!");
 
